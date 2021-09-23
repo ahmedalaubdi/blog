@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import django_heroku
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +27,7 @@ SECRET_KEY = 'django-insecure-86e!j)w&%&pd_l9&=r-i##t$9$5ttnfln9o)8&sp%88_!8cl6h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://django-pyshop.herokuapp.com/']
+ALLOWED_HOSTS = ['pyshop-dj.herokuapp.com']
 
 
 # Application definition
@@ -74,10 +76,25 @@ WSGI_APPLICATION = 'pyshop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST':'ec2-34-197-135-44.compute-1.amazonaws.com',
+        'NAME': 'd9029fqplsqhbk',
+        'USER':'jijmrwgqtevzrd',
+        'PORT':5432,
+        'PASSWORD':'74ebb53e6ae32d01a12277d85801ff7bc5592f1b146ff04866b43c6f87c875b4',
+        'URI': 'postgres://jijmrwgqtevzrd:74ebb53e6ae32d01a12277d85801ff7bc5592f1b146ff04866b43c6f87c875b4@ec2-34-197-135-44.compute-1.amazonaws.com:5432/d9029fqplsqhbk',
+        
+      
     }
 }
 
@@ -119,6 +136,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+django_heroku.settings(locals())
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
